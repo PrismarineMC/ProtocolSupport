@@ -81,5 +81,5 @@ public class PEPacketIDs {
 	//public static final int PHOTO_TRANSFER = 99;
 	public static final int MODAL_REQUEST = 100;
 	public static final int MODAL_RESPONSE = 101;
-	
+
 }
