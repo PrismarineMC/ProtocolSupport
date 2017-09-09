@@ -14,6 +14,7 @@ import protocolsupport.protocol.utils.i18n.I18NData;
 import protocolsupport.protocol.utils.types.Environment;
 import protocolsupport.protocol.utils.types.NetworkEntity;
 import protocolsupport.protocol.utils.types.NetworkEntity.DataCache;
+import protocolsupport.protocol.utils.types.Position;
 import protocolsupport.protocol.utils.types.WindowType;
 import protocolsupport.utils.Utils;
 import protocolsupport.zplatform.itemstack.NBTTagCompoundWrapper;
@@ -60,18 +61,48 @@ public class NetworkDataCache {
 	}
 
 	private WindowType windowType = WindowType.PLAYER;
+	private int windowId = 0;
+	private int windowSlots = 46;
 
-	public void setOpenedWindow(WindowType windowType) {
+	public void setOpenedWindow(WindowType windowType, int windowId, int slots) {
 		this.windowType = windowType;
+		this.windowId = windowId;
+		this.windowSlots = slots;
 	}
 
 	public WindowType getOpenedWindow() {
 		return this.windowType;
 	}
+	
+	public int getOpenedWindowId() {
+		return this.windowId;
+	}
+	
+	public int getOpenedWindowSlots() {
+		return this.windowSlots;
+	}
 
 	public void closeWindow() {
 		this.windowType = WindowType.PLAYER;
+		this.windowId = 0;
+		this.windowSlots = 46;
 	}
+
+	private int actionNumber = 0;
+
+	public int getActionNumber() {
+		return actionNumber++;
+	}
+
+	public void resetActionNumber() {
+		actionNumber = 0;
+	}
+
+	Position clickedPosition = new Position(0, 0, 0);
+
+	public void setClickedPosition(Position clickedPosition) { this.clickedPosition = clickedPosition; }
+
+	public Position getClickedPosition() { return clickedPosition; }
 
 
 	private final TIntObjectHashMap<NetworkEntity> watchedEntities = new TIntObjectHashMap<>();

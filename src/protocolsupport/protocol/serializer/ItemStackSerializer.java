@@ -46,10 +46,8 @@ public class ItemStackSerializer {
 				itemstack.setData((amountdata >> 8) & 0xFFFF);
 				itemstack.setTag(readTag(from, false, version));
 				//TODO: Read the rest properly..
-				from.readByte();
-				from.readByte();
-				//ArraySerializer.readVarIntStringArray(from, version); //TODO: CanPlaceOn PE
-				//ArraySerializer.readVarIntStringArray(from, version); //TODO: CanDestroy PE
+				from.readByte(); //TODO: CanPlaceOn PE
+				from.readByte(); //TODO: CanDestroy PE
 			} else {
 				itemstack.setAmount(from.readByte());
 				itemstack.setData(from.readUnsignedShort());
@@ -64,7 +62,7 @@ public class ItemStackSerializer {
 	}
 
 	public static void writeItemStack(ByteBuf to, ProtocolVersion version, String locale, ItemStackWrapper itemstack, boolean isToClient) {
-		if (itemstack.isNull()) {
+		if (itemstack == null || itemstack.isNull()) {
 			if (version == ProtocolVersion.MINECRAFT_PE) {
 				VarNumberSerializer.writeVarInt(to, 0);
 			} else {
